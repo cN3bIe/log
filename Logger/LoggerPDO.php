@@ -13,6 +13,8 @@ class LoggerPDO extends Logger
 	}
 	protected function __construct()
 	{
+		try
+		{
 		switch (self::$config['db.name']) {
 			case 'MySQL':
 			$this->_db = new \PDO(self::$config['db.conn'], self::$config['db.mysql.user'], self::$config['db.mysql.password']);
@@ -28,9 +30,16 @@ class LoggerPDO extends Logger
 				// $this->_db->exec([Дополнительные запросы создания БД, таблицы и т.д.]);
 				// break;
 			default:
-			throw new \Exception("Error database.");
+			throw new \Exception("Ошибка подключения к базе данных.");
 			break;
 		}
+	} catch (\Exception $e)
+	{
+		echo 'Произошла ошибка:';
+		echo $e->getMessage();
+		echo $e->getLine();
+		echo $e->getFile();
+	}
 	}
 	public function logRecord($msg, $dt = '')
 	{
@@ -45,7 +54,7 @@ class LoggerPDO extends Logger
 		$result = $this->_db->query($sql);
 		if($result) {
 			while ($log = $result->fetch(\PDO::FETCH_ASSOC)) {
-				echo $log['date'].' '.$log['msg'].'<br>';
+				echo $log['date'].' '.nl2br($log['msg']).'<br>';
 			}
 		}
 	}
