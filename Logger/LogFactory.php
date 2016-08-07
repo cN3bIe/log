@@ -12,8 +12,6 @@ class LogFactory
 			case 'CL':
 			return LoggerCL::getInstance();
 			break;
-			case 'config.ini':
-			break;
 			default:
 			return LoggerLF::getInstance();
 			break;

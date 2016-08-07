@@ -13,26 +13,23 @@ class LoggerPDO extends Logger
 	}
 	protected function __construct()
 	{
-		try {
-			switch (self::$config['db.name']) {
-				case 'MySQL':
-				$this->_db = new \PDO(self::$config['db.conn'], self::$config['db.mysql.user'], self::$config['db.mysql.password']);
-				$this->_db->exec(self::$config['db.request.create.table']);
-				break;
-				case 'SQLite':
-				$this->_db = new \PDO(self::$config['db.conn']);
-				$this->_db->exec(self::$config['db.request.create.table']);
-				break;
+		switch (self::$config['db.name']) {
+			case 'MySQL':
+			$this->_db = new \PDO(self::$config['db.conn'], self::$config['db.mysql.user'], self::$config['db.mysql.password']);
+			$this->_db->exec(self::$config['db.request.create.table']);
+			break;
+			case 'SQLite':
+			$this->_db = new \PDO(self::$config['db.conn']);
+			$this->_db->exec(self::$config['db.request.create.table']);
+			break;
+				//    Пример расширения
 				// case 'имя_PDO_драйвера':
-				// $this->_db = new \PDO([Особенность подключения к базе]]);
-				// $this->_db->exec([Дополнительные запросы создания базы, таблицы и т.д.]);
+				// $this->_db = new \PDO([Особенность подключения к БД]]);
+				// $this->_db->exec([Дополнительные запросы создания БД, таблицы и т.д.]);
 				// break;
-				default:
-				throw new \Exception("Error database.");
-				break;
-			}
-		} catch (\Exception $e) {
-			die('Error: database!');
+			default:
+			throw new \Exception("Error database.");
+			break;
 		}
 	}
 	public function logRecord($msg, $dt = '')

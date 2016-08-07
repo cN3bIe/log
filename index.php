@@ -2,10 +2,10 @@
 header("Content-Type: text/html; charset=utf-8");
 //    Автозагрузка классов
 require_once __DIR__.'/vendor/autoload.php';
-//    Указываем необходимые псевдонимы
+//    Указываем необходимые псевдонимы для удобства дальнейшей работы
 use liw\Logger\Logger AS Logger;
 use liw\Logger\LogFactory AS LogFactory;
-//    Подгружаем файл конфигураций класса
+//    Подгружаем файл конфигураций класса config.ini
 Logger::getConfig();
 //    Отправка формы для пополнения БД данными лог, либо же лог-файлы
 if($_SERVER["REQUEST_METHOD"]=="POST") {
@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 	<link href="./css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 </head>
 <body>
-		<!-- phpLiteAdmin Для мониторинга БД SQLite3 -->
+		<!-- phpLiteAdmin Для мониторинга БД SQLite -->
 	<a class="phpLiteAdmin" href="./phpLiteAdmin/">Перейти в phpLiteAdmin</a>
 	<div class="block-create-log">
 		<form action="./" method="POST">
