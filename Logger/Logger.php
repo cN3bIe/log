@@ -8,10 +8,15 @@ abstract class Logger
     abstract public function logRecord($msg, $dt);
     abstract public function printLogbook();
     protected function __clone(){}
-    public static function getConfig()
+    public static function getConfig($pathINI = __DIR__.DIRECTORY_SEPARATOR.'config.ini')
     {
         if(empty(self::$config)) {
-            self::$config = parse_ini_file(__DIR__.DIRECTORY_SEPARATOR.'config.ini');
+            $r_str = '';
+            $str = file_get_contents($pathINI);
+            if(preg_match('/^system\[\'path\'\]=\".+\"/im', $str, $match)) {
+                $r_str = parse_ini_string($match[0])['system']['path'].DIRECTORY_SEPARATOR;
+            }
+            self::$config = parse_ini_string(str_replace('[path]', $r_str, $str));
         }
     }
     protected function datetime($dt = '')
