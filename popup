@@ -1,3 +1,4 @@
+/*v1:23.11.2016.0*/
 style>
 .popup_wrap, .popup{position:fixed;top:0;left:0;bottom:0;right:0;z-index:9999;cursor:pointer;}
 .popup_wrap{background:rgba(0,0,0,.3);display:none;}
